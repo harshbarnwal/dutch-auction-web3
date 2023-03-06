@@ -16,6 +16,7 @@ contract DutchAuction {
         address payable owner;
         bool isOwner;
         BidState bidState;
+        bool addedSecretBid;
     }
 
     struct NFTBidData {
@@ -32,6 +33,7 @@ contract DutchAuction {
     uint256 public nftItemCount = 0;
     uint8 constant discountPerSec = 100;
     event SecretBidStarted(uint256 nftId);
+    event NewNFTAdded(NFT newNft);
     event StartOpenBid(uint256 nftId, uint256 startTime, uint256 startAmount);
     event AuctionCompleted(uint256 nftId, string msg);
 
@@ -40,21 +42,22 @@ contract DutchAuction {
         string memory url,
         uint256 _reservePrice,
         uint8 maxMultiplier
-    ) public returns (NFT memory) {
+    ) public {
         NFT memory newNFT = NFT(
             name,
             url,
             nftItemCount,
             payable(msg.sender),
             true,
-            BidState.notStarted
+            BidState.notStarted,
+            false
         );
         nftList[nftItemCount] = newNFT;
         nftBidData[nftItemCount].highestBid = _reservePrice;
         nftBidData[nftItemCount].maxBidMultiplier = maxMultiplier;
         nftBidData[nftItemCount].reservePrice = _reservePrice;
         nftItemCount++;
-        return newNFT;
+        emit NewNFTAdded(newNFT);
     }
 
     function startSecretBid(uint256 id) public {
@@ -68,8 +71,8 @@ contract DutchAuction {
             nftData.owner == payable(msg.sender),
             "Only owner can start the bid"
         );
-        emit SecretBidStarted(id);
         nftList[id].bidState = BidState.secretBid;
+        emit SecretBidStarted(id);
     }
 
     function addSecretBid(uint256 id, uint256 bidAmount) public {
@@ -124,12 +127,6 @@ contract DutchAuction {
         emit AuctionCompleted(id, "Bid Ended");
     }
 
-    function getBidState(uint256 id) public view returns (BidState) {
-        require(id < nftItemCount, "Item doesn't exists");
-        NFT memory nftData = nftList[id];
-        return nftData.bidState;
-    }
-
     function getItemCurrentPrice(uint256 id) public view returns (uint256) {
         require(id < nftItemCount, "Item doesn't exists");
         NFTBidData memory bidingData = nftBidData[id];
@@ -176,11 +173,12 @@ contract DutchAuction {
         emit AuctionCompleted(id, "Owner changed");
     }
 
-    function getNFTOwners() public view returns (NFT[] memory) {
+    function getNFT() public view returns (NFT[] memory) {
         NFT[] memory ownerData = new NFT[](nftItemCount);
         for (uint8 i = 0; i < nftItemCount; i++) {
             ownerData[i] = nftList[i];
             ownerData[i].isOwner = msg.sender == ownerData[i].owner;
+            ownerData[i].addedSecretBid = participants[i][msg.sender];
         }
         return ownerData;
     }
