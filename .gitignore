@@ -134,3 +134,4 @@ dist
 
 # code formatting
 .prettierrc.json
+contract/artifacts/
