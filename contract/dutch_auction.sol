@@ -127,7 +127,7 @@ contract DutchAuction {
         emit AuctionCompleted(id, "Bid Ended");
     }
 
-    function getBidState(uint256 id) public view returns (NFTBidData memory ) {
+    function getNFTBidData(uint256 id) public view returns (NFTBidData memory ) {
         require(id < nftItemCount, "Item doesn't exists");
         return (nftBidData[id]);
     }
