@@ -127,6 +127,11 @@ contract DutchAuction {
         emit AuctionCompleted(id, "Bid Ended");
     }
 
+    function getBidState(uint256 id) public view returns (NFTBidData memory ) {
+        require(id < nftItemCount, "Item doesn't exists");
+        return (nftBidData[id]);
+    }
+
     function getItemCurrentPrice(uint256 id) public view returns (uint256) {
         require(id < nftItemCount, "Item doesn't exists");
         NFTBidData memory bidingData = nftBidData[id];
@@ -163,7 +168,7 @@ contract DutchAuction {
             "Bid price should not be less than reserve price"
         );
         require(
-            participants[id][msg.sender] == true,
+            participants[id][msg.sender],
             "Only Secret bid participants can place open bid"
         );
         require(msg.value >= amount, "Insuficient balance");
@@ -173,7 +178,7 @@ contract DutchAuction {
         emit AuctionCompleted(id, "Owner changed");
     }
 
-    function getNFT() public view returns (NFT[] memory) {
+    function getNFT() public view returns (NFT[] memory) {  // is it okay if wrapper struct is used?
         NFT[] memory ownerData = new NFT[](nftItemCount);
         for (uint8 i = 0; i < nftItemCount; i++) {
             ownerData[i] = nftList[i];
