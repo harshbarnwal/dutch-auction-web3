@@ -1,0 +1,120 @@
+.App {
+}
+
+.AppHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+  font-size: 2rem;
+  font-style: italic;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 5rem;
+}
+
+.nftOwners {
+  flex: 1;
+  margin-right: 5rem;
+}
+
+.nftOwnersItem {
+  padding: 1rem;
+  background-color: aliceblue;
+  border-radius: 0.8rem;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+/* .nftOwnersItem:hover {
+  background-color: #aad2df;
+  cursor: pointer;
+} */
+
+.nftOwnersItemFirst {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.3rem;
+  align-items: center;
+}
+
+.nftOwnersItemIndex {
+}
+
+.nftOwnersItemSecretBid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nftOwnersItemSecretBidInputParent {
+  display: flex;
+  justify-content: end;
+}
+
+.nftOwnersItemSecretBidInput {
+  margin-right: 1rem;
+  margin-bottom: 0 !important;
+  height: 2.5rem !important;
+  width: 25% !important;
+}
+
+.nftOwnersItemSecretBidButton {
+}
+
+.nftOwnersItemValue {
+  margin-bottom: 0.7rem;
+}
+
+.nftOwnersItemValue span {
+  font-weight: 600;
+  margin-right: 0.7rem;
+}
+
+.nftAddItemSection {
+  flex: 1;
+}
+
+.nftAddItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.nftAddItemInput {
+  margin-bottom: 2rem;
+  width: 100%;
+  height: 3rem;
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+
+  box-sizing: border-box;
+  padding-left: 1rem;
+}
+
+.nftAddItemButton {
+  background-color: #fa4a29;
+  color: #fff;
+  border: none;
+  height: 2.5rem;
+  width: 9rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+/* Common CSS */
+
+.commonTitle {
+  font-size: 1.8rem;
+  margin-bottom: 3rem;
+}
+
+.bidNotStartedHeaderUser {
+  color: #fa4a29;
+  font-style: italic;
+}
