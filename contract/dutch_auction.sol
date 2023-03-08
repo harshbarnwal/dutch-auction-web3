@@ -119,10 +119,6 @@ contract DutchAuction {
             nftData.bidState == BidState.openBid,
             "Bid has not started yet"
         );
-        require(
-            nftData.owner == payable(msg.sender),
-            "Only owner can start the bid"
-        );
         nftList[id].bidState = BidState.endedBid;
         emit AuctionCompleted(id, "Bid Ended");
     }
@@ -130,6 +126,14 @@ contract DutchAuction {
     function getNFTBidData(uint256 id) public view returns (NFTBidData memory ) {
         require(id < nftItemCount, "Item doesn't exists");
         return (nftBidData[id]);
+    }
+
+    function getNFTByID(uint256 id) public view returns (NFT memory nft) {
+        require(id < nftItemCount, "Item doesn't exists");
+        nft = nftList[id];
+        nft.isOwner = msg.sender == nft.owner;
+        nft.addedSecretBid = participants[id][msg.sender];
+        return nft;
     }
 
     function getItemCurrentPrice(uint256 id) public view returns (uint256) {
