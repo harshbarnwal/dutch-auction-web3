@@ -31,7 +31,7 @@ contract DutchAuction {
 
     mapping(uint256 => NFT) nftList;
     uint256 public nftItemCount = 0;
-    uint8 constant discountPerSec = 100;
+    uint8 constant discountPerSec = 50;
     event SecretBidStarted(uint256 nftId);
     event NewNFTAdded(NFT newNft);
     event StartOpenBid(uint256 nftId, uint256 startTime, uint256 startAmount);
