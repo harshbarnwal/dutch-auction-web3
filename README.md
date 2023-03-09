@@ -1,6 +1,7 @@
 # dutch-auction-web3
-A web3 project for solving problem.
+A web3 project for creating dutch auction DAPP.
 
+DAPP - http://dutch-auction.surge.sh/
 
 Contract Address - [0x7f4D8B09c54bcC9B0125F36FAea94D5daF7eae1b](https://goerli.etherscan.io/address/0x7f4D8B09c54bcC9B0125F36FAea94D5daF7eae1b)
 
