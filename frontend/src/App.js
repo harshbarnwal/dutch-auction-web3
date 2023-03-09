@@ -1,6 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import auction from "./auction";
+import Web3 from 'web3';
 import {
   getNFTOwners,
   addNFT,
@@ -239,9 +240,25 @@ const App = () => {
     listenEvents();
   }, []);
 
+  const [address, setAddress] = useState("");
+
+  async function connectToMetamask() {
+    if (window.ethereum) {
+      const web3 = new Web3(window.ethereum);
+      await window.ethereum.request({method: 'eth_requestAccounts'});
+      const walletAddresses = await web3.eth.requestAccounts()
+      setAddress(walletAddresses[0]);
+    }
+  }
+
   return (
     <div className="App">
       <div className="AppHeader">Welcome To Dutch Auction</div>
+      { 
+          address === "" ?
+              <button onClick={() => connectToMetamask()}>Connect to Metamask</button> :
+               <div>Connected with {address}</div>
+      }
       <div className="container">
         <div className="nftOwners">
           <div className="commonTitle">NFT Owners (Click to place bid)</div>
